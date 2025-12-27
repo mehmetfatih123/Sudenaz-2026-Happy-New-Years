@@ -195,9 +195,10 @@
     </style>
 </head>
 <body>
+
     <audio id="bg-music" loop>
-    <source src="muzik.mp3" type="audio/mpeg">
-</audio>
+        <source src="musik.mp3" type="audio/mpeg">
+    </audio>
 
     <canvas id="snow-canvas"></canvas>
 
@@ -281,15 +282,20 @@
     </section>
 <script>
     function openGift() {
+        // MÜZİK ÇALMA FONKSİYONU EKLENDİ
         const music = document.getElementById('bg-music');
-    music.volume = 0.5; // Ses seviyesini %50 yapar, Sudenaz aniden yüksek sesle irkilmesin.
-    music.play();
+        if (music) {
+            music.volume = 0.4; // Ses seviyesi %40
+            music.play().catch(error => {
+                console.log("Müzik otomatik oynatılamadı (Tarayıcı engeli): ", error);
+            });
+        }
 
-    const wrapper = document.getElementById('gift-wrapper');
-    wrapper.classList.add('gift-open');
-    setTimeout(() => {
-        document.getElementById('hero').scrollIntoView({ behavior: 'smooth' });
-    }, 1000);
+        const wrapper = document.getElementById('gift-wrapper');
+        wrapper.classList.add('gift-open');
+        setTimeout(() => {
+            document.getElementById('hero').scrollIntoView({ behavior: 'smooth' });
+        }, 1000);
     }
 
     const canvas = document.getElementById('snow-canvas');
@@ -422,4 +428,3 @@
 </script>
 </body>
 </html>
-

@@ -27,7 +27,7 @@
             font-family: 'Montserrat', sans-serif;
             background-color: var(--emerald);
             color: var(--white);
-            overflow-x: hidden; /* Yatay kaymayı engelle */
+            overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
@@ -37,14 +37,12 @@
             margin-top: 0;
         }
 
-        /* --- KAR YAĞIŞI CANVAS --- */
         #snow-canvas {
             position: fixed; top: 0; left: 0; 
             width: 100%; height: 100%; 
             pointer-events: none; z-index: 9998;
         }
 
-        /* --- PARALLAX YAPISI --- */
         .parallax-section {
             min-height: 100vh;
             background-attachment: fixed;
@@ -62,7 +60,6 @@
             z-index: 1;
         }
 
-        /* --- GLASSMORPHISM (BUZLU CAM) KUTULARI --- */
         .glass-card {
             z-index: 2;
             background: var(--glass);
@@ -77,7 +74,6 @@
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
-        /* --- HİKAYE BLOKLARI --- */
         .story-grid { display: flex; flex-direction: column; gap: 30px; margin-top: 30px; }
         
         .story-item {
@@ -98,7 +94,6 @@
             .story-item img { width: 100%; height: 200px; }
         }
 
-        /* --- TAKVİM TASARIMI --- */
         #calendar-section {
             padding: 80px 20px;
             text-align: center;
@@ -131,14 +126,12 @@
             transition: all 0.3s ease;
         }
 
-        /* Kilitli Gün */
         .day-box.locked::after {
             content: "🔒"; font-size: 0.8rem; display: block; margin-top: 5px;
         }
 
-        /* Açık Gün (Aktif) */
         .day-box.unlocked {
-            background: rgba(212, 175, 55, 0.2); /* Altın rengi transparan */
+            background: rgba(212, 175, 55, 0.2); 
             border: 1px solid var(--gold);
             color: var(--white);
             cursor: pointer;
@@ -150,7 +143,6 @@
             color: var(--emerald);
         }
 
-        /* --- NOT POPUP (MODAL) --- */
         #note-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.9);
@@ -175,7 +167,6 @@
         }
         @keyframes popIn { from {transform: scale(0.5); opacity: 0;} to {transform: scale(1); opacity: 1;} }
 
-        /* --- HEDİYE KURDELESİ (GIFT WRAPPER) --- */
         #gift-wrapper {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle, var(--emerald) 0%, #05140e 100%);
@@ -286,7 +277,6 @@
         </div>
     </section>
 <script>
-    // --- 1. HEDİYE AÇMA ---
     function openGift() {
         const wrapper = document.getElementById('gift-wrapper');
         wrapper.classList.add('gift-open');
@@ -295,7 +285,6 @@
         }, 1000);
     }
 
-    // --- 2. KAR YAĞIŞI EFEKTİ ---
     const canvas = document.getElementById('snow-canvas');
     const ctx = canvas.getContext('2d');
     
@@ -307,7 +296,7 @@
     resizeCanvas();
 
     let particles = [];
-    for(let i=0; i<50; i++) { // Performans için kar tanesi sayısını 50 yaptım
+    for(let i=0; i<50; i++) {
         particles.push({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
@@ -341,7 +330,6 @@
     setInterval(drawSnow, 30);
 
 
-    // --- 3. TAKVİM VE NOTLAR (DÜZELTİLMİŞ KİLİT SİSTEMİ) ---
     
     const messages = [
         "1. Gün: Yeni yılımız kutlu olsun canım sevgilim! Bu yılda mutlu olalım.",
@@ -390,12 +378,10 @@
 
 
         if (currentYear < 2026) {
-             // Henüz 2026 gelmedi, her şey kilitli.
              box.classList.add('locked');
              box.onclick = () => alert("Sürprizi bozma! Ocak 2026'yı bekle :)");
         } 
         else if (currentYear === 2026 && currentMonth === 0) {
-            // Ocak 2026'dayız.
             if (i <= currentDay) {
                 box.classList.add('unlocked');
                 box.onclick = () => showNote(i);
